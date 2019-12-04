@@ -1,0 +1,8 @@
+
+clear
+M = 100;
+D0 = 20;
+x = 1:M;
+for x = 1:M
+ y(1 = exp(-x*x/(2*D0*D0));
+end

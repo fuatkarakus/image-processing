@@ -1,0 +1,33 @@
+clear
+f = im2double(rgb2gray(imread('lena.jpg')));
+
+[M N]= size (f);
+
+%f = imresize(f,0.2);
+%F = my2DFT(f);
+F =fft2(f);
+F = fftshift(F);
+imshow(abs(log(F)), [])
+
+H = zeros(M,N);
+D0 = 20;
+xc = M/2;
+yc = N/2;
+for i=1:M
+    for j = 1:N
+       dist = sqrt(power(i-xc,2)+power(j-yc,2));
+        %if dist<D0
+           % H(i,j) = (D0-dist)/D0;
+            %H(i,j) = 1;
+        %end
+       %H(i,j) = 1/power((1+dist/D0),4);
+        H(i,j) = exp(-dist*dist/(2*D0*D0));
+    end
+end
+%H = 1-H;
+F = F.*H;
+
+IF = ifftshift(F);
+g = ifft2(IF);
+imshow([f H g]);
+
